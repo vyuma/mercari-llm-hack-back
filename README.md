@@ -15,7 +15,10 @@ app/
 
 # Usage
 
-appディレクトリ直下でpython3 app.pyで起動
+開発時は環境はvenvでやってた  
+
+1. requirements.txtで必要物をインストール
+2. appディレクトリ直下で`python3 app.py`で起動
 
 こんな感じでアクセスする．
 
@@ -39,6 +42,5 @@ to be continued
 
 
 
-開発時は環境はvenvでやってた  
 
 
