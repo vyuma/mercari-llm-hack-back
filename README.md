@@ -1,4 +1,6 @@
-# ディレクトリの説明
+# mercariハッカソン用バックエンド
+
+## ディレクトリの説明
 
 preprocess/
 - Mercari_hackathon.ipynb : ダミーデータ生成のためのnotebook
@@ -13,7 +15,7 @@ app/
 - dummy_data.db : データ格納用データベース
 
 
-# Usage
+## Usage
 
 開発時は環境はvenvでやってた  
 
@@ -23,7 +25,7 @@ app/
 こんな感じでアクセスする．
 
 
-## 買い手が値段の推移のチャートを見るとき
+### 買い手が値段の推移のチャートを見るとき
 ```
 http://127.0.0.1:5000/get_purchase_price?Item=Pins/Badges&Buyer%20Country=Japan
 ```
@@ -37,7 +39,7 @@ Buyer Countryは以下
 'Japan', 'China', 'South Korea', 'Vietnam', 'Thailand', 'Malaysia', 'Indonesia', 'Philippines'
 
 
-## 売り手がトレンドの商品を見たい時
+### 売り手がトレンドの商品を見たい時
 to be continued
 
 
