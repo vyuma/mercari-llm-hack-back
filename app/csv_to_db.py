@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 
 # CSVファイルを読み込む
-csv_file = 'dummy_data.csv'
+csv_file = '../static/dummy_data.csv'
 df = pd.read_csv(csv_file)
 
 # カラム名のスペースをアンダースコアに置換
