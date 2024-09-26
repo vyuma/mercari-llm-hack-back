@@ -1,3 +1,15 @@
+# ディレクトリの説明
+
+preprocess
+- Mercari_hackathon.ipynb : ダミーデータ生成のためのnotebook
+static
+- dummy_data.csv : 生成されたダミーデータ
+app
+- app.py : 本体
+- csv_to_db.py : csvからdbにデータを送り込むスクリプト
+- db_debug.py : デバッグ用
+- dummy_data.db : データ格納用データベース
+
 
 # Usage
 
