@@ -1,15 +1,18 @@
 from flask import Flask, request, jsonify
-import pandas as pd
+import sqlite3
 
 # Flaskアプリケーションの初期化
 app = Flask(__name__)
 
-# ダミーデータを読み込む
-# 事前にアップロードされたデータファイル "dummy_data.csv" を使用
-df = pd.read_csv('dummy_data.csv')
-
-# Date列をdatetime形式に変換
-df['Date'] = pd.to_datetime(df['Date'])
+# SQLiteデータベースに接続する関数
+def query_db(query, args=(), one=False):
+    conn = sqlite3.connect('dummy_data.db')
+    conn.row_factory = sqlite3.Row  # 名前ベースで結果を扱えるようにする
+    cur = conn.cursor()
+    cur.execute(query, args)
+    rv = cur.fetchall()
+    conn.close()
+    return (rv[0] if rv else None) if one else rv
 
 # APIエンドポイントの定義
 @app.route('/get_purchase_price', methods=['GET'])
@@ -34,23 +37,24 @@ def get_purchase_price():
     if not buyer_currency:
         return jsonify({"error": "Invalid Buyer Country"}), 400
 
-    # ItemとBuyer Countryでフィルタリング
-    filtered_df = df[(df['Item'] == item)]
-
-    if filtered_df.empty:
-        return jsonify({"error": "No data found for the specified Item"}), 404
-
-    # 'Purchase Price in {Buyer Country}'の列名を動的に作成
-    price_column = f'Purchase Price in {buyer_currency}'
+    # SQLクエリで該当するアイテムと国のデータを取得
+    price_column = f"Purchase_Price_in_{buyer_currency}"  
+    query = f'''
+    SELECT Date, {price_column}
+    FROM transactions
+    WHERE Item = ? AND Buyer_Country = ?
+    '''
     
-    if price_column not in filtered_df.columns:
-        return jsonify({"error": f"No data available for {buyer_country} in the specified item"}), 404
+    result = query_db(query, [item, buyer_country])
 
-    # 必要な列だけを抽出
-    result = filtered_df[['Date', price_column]].to_dict(orient='records')
+    if not result:
+        return jsonify({"error": "No data found for the specified Item and Buyer Country"}), 404
 
+    # 結果を辞書に変換
+    result_list = [{"Date": row["Date"], f"Purchase Price in {buyer_currency}": row[price_column]} for row in result]
+    
     # JSON形式で返す
-    return jsonify(result)
+    return jsonify(result_list)
 
 # Flaskサーバを実行
 if __name__ == '__main__':
