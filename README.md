@@ -25,7 +25,7 @@ app/
 こんな感じでアクセスする．
 
 
-### 買い手が値段の推移のチャートを見るとき
+### 買い手が商品の値段の推移のチャートを見るとき(get_purchase_price)
 ```
 http://127.0.0.1:5000/get_purchase_price?Item=Pins/Badges&Buyer%20Country=Japan
 ```
@@ -38,10 +38,27 @@ Itemは以下
 Buyer Countryは以下  
 'Japan', 'China', 'South Korea', 'Vietnam', 'Thailand', 'Malaysia', 'Indonesia', 'Philippines'
 
+機能:過去の同一(類似)商品の値段の推移を国別に可視化
 
-### 売り手がトレンドの商品を見たい時
-to be continued
+### 売り手がトレンドの商品を見たい時(get_ranking)
 
+
+機能:国別の急上昇ランキングを表示(過去1ヶ月の購買数 / 過去半年間の1ヶ月あたりの平均購買数)
+
+### 買い手が商品を買えるかバリデーション(is_eligible_to_buy)
+
+
+機能
+
+### 売り手が出品する商品のバリデーション(is_proper_to_sell)
+
+
+
+
+
+todo
+同一商品とは？画像認識で類似性が閾値以上？
+NewsApiより多く各国のニュースをスクレイピングするスクリプト
 
 
 
